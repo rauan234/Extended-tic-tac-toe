@@ -1,11 +1,8 @@
+#include <Windows.h>
 #include <pthread.h>
-#include <iostream>
-#include <conio.h>
-#include <string>
 #include <CImg.h>
 
 using namespace cimg_library;
-using namespace std;
 
 
 
@@ -880,7 +877,11 @@ void* track_lmb(void* unneeded_arg) {
 
 	return 0;
 }
-int main() {
+int WinMain(HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPTSTR    lpCmdLine,
+	int       cmdShow)
+{
 	srand(time(0));
 
 	pthread_t mouse_tracking;
