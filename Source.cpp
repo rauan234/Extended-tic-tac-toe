@@ -142,12 +142,6 @@ public:
 			return 0;
 		}
 	}
-	void clearmemory() {
-		pthread_cancel(*thread_pointer);
-		delete thread_pointer;
-
-		delete this;
-	}
 };
 void* input_box_changer(void* raw) {
 	inputbox* box = static_cast<inputbox*>(raw);
@@ -191,11 +185,7 @@ void* input_box_changer(void* raw) {
 				}
 			}
 
-			if (uint(box->value) != 0xDDDDDDDD) {
-				if (!box->draw()) {
-					return 0;
-				}
-			}
+			box->draw();
 
 			Sleep(250);
 		}
@@ -445,9 +435,6 @@ public:
 	void cleanmemory() {
 		delete tiles;
 		delete hd_coordinates;
-		for (byte dim = 0; dim < number_of_dimentions - 2; dim++) {
-			dimention_inputboxes[dim]->clearmemory();
-		}
 	}
 	bool sendclick(ush click_xcor, ush click_ycor, byte current_player) {
 		ush field_size = YSize - 128 - indentation * 2;  // 128 is the size of "Back to main menu" button
@@ -548,13 +535,10 @@ public:
 					}
 				}
 			}
-
-			byte out = 0;
+			byte out = number_of_players;
 			for (byte player = 0; player < number_of_players; player++) {
 				if (winners[player]) {
-					if (rand() % (player + 1) == 0) {  // this algorithm lets to chose random player from the chart
-						out = player + 1;
-					}
+					out = player + 1;
 				}
 			}
 
