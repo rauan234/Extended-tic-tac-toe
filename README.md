@@ -1,2 +1,2 @@
 # Extended-tic-tac-toe
-Multi - dimentional and multi - player version of tic-tac-toe
+An n-dimentional and multiplayer version of tic-tac-toe.
